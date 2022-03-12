@@ -1,0 +1,56 @@
+[data-theme='light'],
+:root:not([data-theme='dark']) {
+  /* --primary: #36008e; */
+  --primary: #d81b60;
+  --primary-hover: #96089b;
+}
+.hero {
+  padding: 5rem auto;
+}
+main {
+  background: linear-gradient(320.54deg, #00069f 0%, #120010 72.37%),
+    linear-gradient(58.72deg, #69d200 0%, #970091 100%),
+    linear-gradient(121.28deg, #8cff18 0%, #6c0075 100%),
+    linear-gradient(121.28deg, #8000ff 0%, #000000 100%),
+    linear-gradient(180deg, #00ff19 0%, #24ff00 0.01%, #2400ff 100%),
+    linear-gradient(52.23deg, #0500ff 0%, #ff0000 100%),
+    linear-gradient(121.28deg, #32003a 0%, #ff4040 100%),
+    radial-gradient(50% 72.12% at 50% 50%, #eb00ff 0%, #110055 100%);
+  background-blend-mode: screen, color-dodge, color-burn, screen, overlay,
+    difference, color-dodge, normal;
+  min-height: 100vh;
+}
+.text-center {
+  text-align: center;
+}
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.capital {
+  text-transform: capitalize;
+}
+form {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 4fr 1fr;
+  /* width: 100%; */
+  /* margin: 6rem; */
+}
+form input {
+  border: 2px solid rgb(241, 171, 218);
+  z-index: 50;
+  color: #ddd;
+}
+table th,
+td {
+  color: #ddd;
+}
+table {
+  overflow-x: hidden !important;
+}
+/* form > * {
+  width: auto;
+  justify-content: start;
+} */

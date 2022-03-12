@@ -1,0 +1,135 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css"
+    />
+    <style>
+      [data-theme='light'],
+      :root:not([data-theme='dark']) {
+        /* --primary: #36008e; */
+        --primary: #d81b60;
+        --primary-hover: #96089b;
+      }
+      .hero {
+        padding-top: 5rem;
+        padding-bottom: 5rem;
+        background: linear-gradient(140.54deg, #608d00 0%, #d30000 72.37%),
+          linear-gradient(360deg, #0029ff 0%, #8fff00 100%),
+          radial-gradient(100% 164.72% at 100% 100%, #6100ff 0%, #00ff57 100%),
+          radial-gradient(100% 148.07% at 0% 0%, #fff500 0%, #51d500 100%);
+        background-blend-mode: color-dodge, overlay, difference, normal;
+      }
+      .text-center {
+        text-align: center;
+      }
+      .center {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .capital {
+        text-transform: capitalize;
+      }
+      form {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: 4fr 1fr;
+        /* width: 100%; */
+        /* margin: 6rem; */
+      }
+      form input {
+        border: 2px solid rgb(255, 95, 202);
+        z-index: 50;
+        color: rgb(0, 0, 0);
+      }
+      form input:focus {
+        box-shadow: none;
+        border-color: rgb(255, 95, 202);
+      }
+      table th,
+      td {
+        color: rgb(0, 0, 0);
+      }
+      table {
+        overflow-x: hidden !important;
+      }
+      a {
+        color: white;
+      }
+    </style>
+    <title>Document</title>
+  </head>
+  <body>
+    <section class="hero">
+      <h1 class="text-center capital container" style="color: azure">
+        download 24677 movie in one <br />
+        click no ads, no spam, no redirect
+      </h1>
+    </section>
+    <section class="container">
+      <form action="">
+        <div>
+          <input
+            name="name"
+            id="query"
+            placeholder="search movie"
+            oninput="queryData"
+            required
+          />
+        </div>
+        <div>
+          <button>find</button>
+        </div>
+      </form>
+      <div style="overflow-x: scroll">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">name</th>
+              <th scope="col">download</th>
+            </tr>
+          </thead>
+          <tbody id="table"></tbody>
+        </table>
+      </div>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.6/dist/autoComplete.min.js"></script>
+    <script>
+      let table_ = document.getElementById('table')
+      let query = document.getElementById('query')
+
+      const getData = async (e) => {
+        if (e.length > 1) {
+          let request = await fetch(
+            `http://127.0.0.1:8000/data/?name=${e}&limit=10`
+          )
+          let my_JSON_object = await request.json()
+          returnData(my_JSON_object.data)
+        }
+      }
+      function returnData(e) {
+        let dom_ = (name, url) =>
+          `<tr><td>${name}</td><td><button><a href=${url} target="_blank">download</a></button></td></tr>`
+        let content = ''
+        for (let i = 0; i < e.length; i++) {
+          const name = e[i][0]
+          const url = e[i][1]
+          content = content + dom_(name, url)
+        }
+        table_.innerHTML = content
+        console.log(e)
+      }
+      function queryData() {
+        getData(query.value)
+      }
+
+      query.addEventListener('input', queryData)
+    </script>
+  </body>
+</html>
